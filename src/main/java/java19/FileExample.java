@@ -8,7 +8,7 @@ import java.io.FileFilter;
  * @version 1.0
  * @date 2020/8/10 10:38
  */
-public class Main {
+public class FileExample {
     public static void main(String[] args) {
         String pathname = "D:\\IT\\java\\java-web";
         File file = new File(pathname);
