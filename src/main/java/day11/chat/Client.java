@@ -12,28 +12,17 @@ import java.util.Scanner;
 public class Client {
     public static void main(String[] args) throws IOException {
         Socket socket = new Socket("localhost", 6666);
-
+        System.out.println("客户端创建远程连接"+socket.getRemoteSocketAddress());
         //输出流
-        OutputStream os = socket.getOutputStream();
-        BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(os);
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        //输入流
+        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-//        //输入流
-        InputStream inputStream = socket.getInputStream();
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        new Read(reader, "服务端").start();
+        new Write(writer, "客户端").start();
 
-        System.out.println("聊天已连接，请输入：");
-        while (true) {
-            Scanner scanner = new Scanner(System.in);
-            String s = scanner.nextLine();
-            bufferedOutputStream.write(s.getBytes());
-            bufferedOutputStream.flush();
-
-
-            String msg = bufferedReader.readLine();
-            System.out.println(msg);
-
-
-        }
+        //socket.shutdownOutput();
+        //System.out.println("客户端关闭");
     }
 }
+
