@@ -19,9 +19,9 @@ public class Client {
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
         new Read(reader, "服务端").start();
-        new Write(writer, "客户端").start();
+        new Write(writer, "客户端",socket).start();
 
-        //socket.shutdownOutput();
+        //sockets.shutdownOutput();
         //System.out.println("客户端关闭");
     }
 }

@@ -23,7 +23,11 @@ public class Read extends Thread{
                 System.out.println(name+":"+msg);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                reader.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }

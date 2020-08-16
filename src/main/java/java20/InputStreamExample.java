@@ -3,6 +3,7 @@ package java20;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author Mrchen
@@ -12,7 +13,7 @@ import java.io.IOException;
 public class InputStreamExample {
     public static void main(String[] args) throws IOException {
         String name = "D:\\IT\\java\\java-web/a.txt";
-        FileInputStream inputStream = new FileInputStream(name);
+        InputStream inputStream = new FileInputStream(name);
 
 //        int read;
 //        while ((read = inputStream.read()) != -1) {

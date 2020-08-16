@@ -17,17 +17,18 @@ public class Server {
         //创建serverSocket
         ServerSocket serverSocket = new ServerSocket(6666);
         System.out.println("服务端创建,端口为"+serverSocket.getLocalPort());
+        int i = 0;
         while (true){
             Socket server = serverSocket.accept();
-            System.out.println(server.getInetAddress()+" 客户端已连接");
+            i++;
+            System.out.println(server.getInetAddress()+"客户端"+i+"已连接");
             //输入流
             BufferedReader reader = new BufferedReader(new InputStreamReader(server.getInputStream()));
             //输出流
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(server.getOutputStream()));
             //读数据，输出
-            new Read(reader,"客户端").start();
-            new Write(writer,"服务端").start();
-
+            new Read(reader,"客户端"+i).start();
+            new Write(writer,"服务端",server).start();
 
             //server.shutdownOutput();
             //System.out.println("服务端关闭");

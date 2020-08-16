@@ -2,6 +2,8 @@ package day11.chat;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Scanner;
 
 /**
@@ -9,18 +11,21 @@ import java.util.Scanner;
  * @version 1.0
  * @date 2020/8/13 16:17
  */
-public class Write extends Thread{
-    private  BufferedWriter writer;
-    private  String name;
+public class Write extends Thread {
+    private BufferedWriter writer;
+    private String name;
+    private Socket sock;
 
-    public Write(BufferedWriter writer, String name) {
+    public Write(BufferedWriter writer, String name,Socket o) {
         this.writer = writer;
         this.name = name;
+        this.sock = o;
     }
 
     @Override
-    public  void run() {
-        while (true) {
+    public void run() {
+        boolean flag = true;
+        while (flag) {
             try {
                 Scanner scanner = new Scanner(System.in);
                 String str = scanner.nextLine();
@@ -28,12 +33,16 @@ public class Write extends Thread{
                 writer.write(str + "\n");
                 writer.flush();
                 if (str.equals("exit")) {
-                    break;
+                    //sock.shutdownInput();
+                   // sock.shutdownOutput();
+                    sock.close();
+                    flag = false;
+                  //  flag = false;
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                flag = false;;
             }
-
         }
+
     }
 }
